@@ -42,7 +42,7 @@ jobs:
       env:
         CI: false
         REACT_APP_API_URL: https://ithub.rocket-champ.com
-        REACT_APP_BASE_URL: /projects/ithub
+        REACT_APP_BASE_URL: /ithub
       run: npm run build
 
     - name: Upload GitHub Pages artifact
