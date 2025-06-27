@@ -1,5 +1,7 @@
 # IT-Hub
 
+This is the fullstack MERN stack (MongoDB, Express.js, React.js, Node.js) social media web application i did for my Bachelor Project.  
+
 ## Introduction
 
 IT-hub is a social media platform for technical and not only people in the IT field. The app provides a space for users to create and collaborate on projects, connect with others, and share their work.
