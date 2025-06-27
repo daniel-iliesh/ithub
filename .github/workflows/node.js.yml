@@ -1,0 +1,75 @@
+# This workflow is for Node.js CI/CD, specifically building and deploying to GitHub Pages.
+
+name: Node.js Build & Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ] # Triggers the workflow on pushes to the 'main' branch
+  pull_request:
+    branches: [ "main" ] # Triggers the workflow on pull requests to the 'main' branch
+
+jobs:
+  build:
+    # Defines the operating system for this job
+    runs-on: ubuntu-latest
+
+    # Strategy allows running the job across multiple Node.js versions,
+    # but for simplicity, we'll stick to a single version (16.x) as requested.
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: Checkout repository
+      # Checks out your repository code, so the workflow can access it.
+      uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      # Sets up the specified Node.js environment.
+      # Caches node modules to speed up subsequent runs.
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm' # Caches npm dependencies to improve build times
+
+    - name: Install dependencies
+      # Installs all project dependencies defined in package.json
+      run: npm install
+
+    - name: Build project with environment variables
+      # Runs the build script defined in your package.json (e.g., 'react-scripts build').
+      # Environment variables are set here for the build process.
+      env:
+        REACT_APP_API_URL: https://ithub.rocket-champ.com
+        REACT_APP_BASE_URL: /projects/ithub
+      run: npm run build
+
+    - name: Upload GitHub Pages artifact
+      # Uploads the built files from the 'build' directory as an artifact.
+      # This artifact will then be used by the 'deploy' job.
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './build' # Assumes your build output is in a folder named 'build'
+
+  deploy:
+    # Defines the deployment environment for GitHub Pages.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Sets the URL of the deployed page in the GitHub UI
+    
+    # Specifies that this job should run after the 'build' job has successfully completed.
+    runs-on: ubuntu-latest
+    needs: build
+
+    # Permissions required for deploying to GitHub Pages.
+    # 'pages: write' is for pushing content to the GitHub Pages branch.
+    # 'id-token: write' is for OpenID Connect (OIDC) authentication.
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy to GitHub Pages
+        # This action takes the uploaded artifact and deploys it to your GitHub Pages site.
+        id: deployment # Gives this step an ID so its outputs (like page_url) can be referenced
+        uses: actions/deploy-pages@v4
