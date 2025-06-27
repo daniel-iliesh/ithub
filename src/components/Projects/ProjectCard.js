@@ -1,5 +1,3 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
 import { BsFillKanbanFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -10,7 +8,7 @@ const getRandomColor = () => {
 
 const ProjectCard = ({ project }) => {
   const creator = useSelector((state) =>
-    state?.reducers?.users?.find((user) => user?._id === project?.creator)
+    state?.reducers?.users?.find((user) => user?._id === project?.creator),
   );
 
   return (

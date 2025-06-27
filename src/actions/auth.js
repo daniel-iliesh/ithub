@@ -16,14 +16,15 @@ export const signin = (formData, navigate) => async (dispatch) => {
 };
 export const signup = (formData, navigate) => async (dispatch) => {
   try {
-    console.log(formData)
+    console.log(formData);
     const { data } = await api.signUp(formData);
 
     dispatch({ type: AUTH, data });
 
     navigate("/");
   } catch (error) {
-    console.log(error.response.data);
-    return error.response.data;
+    console.log(error);
+    console.log(error.response?.data);
+    return error.response?.data;
   }
 };

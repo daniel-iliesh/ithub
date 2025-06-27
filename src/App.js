@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -29,7 +29,7 @@ const App = () => {
   const projects = useSelector((state) => state?.reducers?.projects);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_BASE_URL}>
       <Container fluid>
         <Row>
           <NavbarComp localUser={localUser} />

@@ -6,7 +6,7 @@ import {
   UNFOLLOW_USER,
 } from "../constants/actionTypes.js";
 
-export default (users = [], action) => {
+const users = (users = [], action) => {
   switch (action.type) {
     case FETCH_USERS:
       // console.log("FETCH_USERS PAYLOAD - ", action.payload);
@@ -25,7 +25,7 @@ export default (users = [], action) => {
       const currUser = JSON.parse(localStorage.getItem("profile"));
       localStorage.setItem(
         "profile",
-        JSON.stringify({ result: action.payload, token: currUser.token })
+        JSON.stringify({ result: action.payload, token: currUser.token }),
       );
       return [...users, action.payload];
     case DELETE_USER:
@@ -34,3 +34,5 @@ export default (users = [], action) => {
       return users;
   }
 };
+
+export default users;

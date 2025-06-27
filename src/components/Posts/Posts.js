@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import Post from "./Post.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import { getLocalStorageUser } from "../../utils/utils.js";
 
 const Posts = ({ setCurrentId, mode, posts, users }) => {
-  const dispatch = useDispatch();
   const localUser = getLocalStorageUser();
 
   const user = useSelector((state) =>
-    state?.reducers?.users.find((user) => user?._id === localUser?._id)
+    state?.reducers?.users.find((user) => user?._id === localUser?._id),
   );
 
-  const getFriendsPosts = () => {
-    let friendsPosts = [];
-    posts.forEach(
-      (post) => user?.friends.includes(post?.creator) && friendsPosts.push(post)
+  const filterFriendsPosts = (posts, user) => {
+    // Add checks for user and user.friends to prevent errors
+    if (!user || !user.friends) {
+      return [];
+    }
+    return posts.filter(
+      (post) => post?.creator && user.friends.includes(post.creator),
     );
-    return friendsPosts;
   };
 
-  const [friendsPosts, setFriendsPosts] = useState(getFriendsPosts());
+  const [friendsPosts, setFriendsPosts] = useState([]);
 
   useEffect(() => {
-    setFriendsPosts(getFriendsPosts());
-  }, [dispatch]);
+    const calculatedFriendsPosts = filterFriendsPosts(posts, user);
+    setFriendsPosts(calculatedFriendsPosts);
+  }, [posts, user]);
 
   return (
     <Row>

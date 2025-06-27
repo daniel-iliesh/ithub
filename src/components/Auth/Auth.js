@@ -3,11 +3,8 @@ import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 import Input from "../General/Input";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
-import { gapi } from "gapi-script";
 import { signin, signup } from "../../actions/auth";
 import { getUsers } from "../../actions/users";
-import { getPosts } from "../../actions/posts";
 
 const avatarImg =
   "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
@@ -55,10 +52,10 @@ const Auth = () => {
   const [error, setError] = useState("");
   const [validated, setValidated] = useState(false);
 
-  const clientId =
-    "424340912164-pacifsoe4ghmu5kfjpe6c71hvvo8qd36.apps.googleusercontent.com";
-  const SCOPE =
-    "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+  // const clientId =
+  //   "424340912164-pacifsoe4ghmu5kfjpe6c71hvvo8qd36.apps.googleusercontent.com";
+  // const SCOPE =
+  //   "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
 
   const switchAuth = () => {
     setIsSignUp((prevState) => !prevState);
@@ -89,34 +86,34 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    const start = () => {
-      gapi.client
-        .init({
-          clientId: clientId,
-          scope: SCOPE,
-        })
-        .then();
-    };
-    gapi.load("client:auth2", start);
+    // const start = () => {
+    //   gapi.client
+    //     .init({
+    //       clientId: clientId,
+    //       scope: SCOPE,
+    //     })
+    //     .then();
+    // };
+    // gapi.load("client:auth2", start);
   }, []);
 
-  const googleSuccess = (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
+  // const googleSuccess = (res) => {
+  //   const result = res?.profileObj;
+  //   const token = res?.tokenId;
 
-    try {
-      dispatch({ type: "AUTH", data: { result, token } });
-      dispatch(getUsers());
-      dispatch(getPosts());
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     dispatch({ type: "AUTH", data: { result, token } });
+  //     dispatch(getUsers());
+  //     dispatch(getPosts());
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const googleFailure = (res) => {
-    console.log("Login failed ! res:", res);
-  };
+  // const googleFailure = (res) => {
+  //   console.log("Login failed ! res:", res);
+  // };
 
   return (
     <Container>
@@ -195,7 +192,7 @@ const Auth = () => {
                 {isSignup ? "Sign Up" : "Sing In"}
               </Button>
 
-              <div className="d-grid mt-3">
+              {/* <div className="d-grid mt-3">
                 <GoogleLogin
                   className="googleLoginBtn btn-ithub"
                   clientId={clientId}
@@ -203,7 +200,7 @@ const Auth = () => {
                   onFailure={googleFailure}
                   cookiePolicy={"single_host_origin"}
                 />
-              </div>
+              </div> */}
               <Button className="mt-3" variant="ithub" onClick={switchAuth}>
                 {" "}
                 {isSignup

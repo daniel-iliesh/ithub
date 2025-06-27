@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProjects } from "../../actions/projects";
+import { useSelector } from "react-redux";
 import ProjectCard from "../Projects/ProjectCard";
 import CreateProject from "../Projects/CreateProject";
 import { useParams } from "react-router-dom";
@@ -12,11 +11,13 @@ const ProjectsContainer = ({ projects }) => {
   const localUser = getLocalStorageUser();
 
   const user = useSelector((state) =>
-    state?.reducers?.users.find((user) => user?.username === username)
+    state?.reducers?.users.find((user) => user?.username === username),
   );
 
   const currentUserProjects = useSelector((state) =>
-    state?.reducers?.projects.filter((project) => project.creator === user?._id)
+    state?.reducers?.projects.filter(
+      (project) => project.creator === user?._id,
+    ),
   );
 
   return (

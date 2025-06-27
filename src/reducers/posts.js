@@ -6,7 +6,7 @@ import {
   LIKE_POST,
 } from "../constants/actionTypes.js";
 
-export default (posts = [], action) => {
+const posts = (posts = [], action) => {
   switch (action.type) {
     case FETCH_POSTS:
       return action.payload;
@@ -17,9 +17,11 @@ export default (posts = [], action) => {
     case UPDATE_POST:
     case LIKE_POST:
       return posts.map((post) =>
-        post._id === action.payload._id ? action.payload : post
+        post._id === action.payload._id ? action.payload : post,
       );
     default:
       return posts;
   }
 };
+
+export default posts;

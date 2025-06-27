@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: process.env.REACT_APP_BASE_CUSTOM_URL });
-
+const API = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -12,39 +11,39 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const fetchPosts = () => API.get("/post");
+export const fetchPosts = () => API.get("/posts");
 
-export const createPost = (newPost) => API.post("/post", newPost);
+export const createPost = (newPost) => API.post("/posts", newPost);
 
-export const likePost = (id) => API.patch(`/post/${id}/likePost`);
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 
 export const updatePost = (id, updatedPost) =>
-  API.patch(`/post/${id}`, updatedPost);
+  API.patch(`/posts/${id}`, updatedPost);
 
-export const deletePost = (id) => API.delete(`/post/${id}`);
+export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-export const fetchProjects = () => API.get("/project");
+export const fetchProjects = () => API.get("/projects");
 
-export const createProject = (newProject) => API.post("/project", newProject);
+export const createProject = (newProject) => API.post("/projects", newProject);
 
 export const updateProject = (id, updatedProject) =>
-  API.patch(`/project/${id}`, updatedProject);
+  API.patch(`/projects/${id}`, updatedProject);
 
-export const deleteProject = (id) => API.delete(`/project/${id}`);
+export const deleteProject = (id) => API.delete(`/projects/${id}`);
 
-export const signIn = (formData) => API.post("/user/signin", formData);
+export const signIn = (formData) => API.post("/users/signin", formData);
 
-export const signUp = (formData) => API.post("/user/signup", formData);
+export const signUp = (formData) => API.post("/users/signup", formData);
 
-export const getUsers = () => API.get(`/user`);
+export const getUsers = () => API.get(`/users`);
 
 export const updateUser = (id, updatedUser) =>
-  API.post(`/user/${id}`, updatedUser);
+  API.post(`/users/${id}`, updatedUser);
 
-export const deleteUser = (id) => API.post(`/user/${id}`);
+export const deleteUser = (id) => API.post(`/users/${id}`);
 
 export const followUser = (id, followingId) =>
-  API.post(`/user/${id}/${followingId}/follow`);
+  API.post(`/users/${id}/${followingId}/follow`);
 
 export const unfollowUser = (id, unfollowingId) =>
-  API.post(`/user/${id}/${unfollowingId}/unfollow`);
+  API.post(`/users/${id}/${unfollowingId}/unfollow`);

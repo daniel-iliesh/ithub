@@ -19,9 +19,9 @@ function Input({
     setCurrentVisibility((prevCurrentVisibility) => !prevCurrentVisibility);
   };
 
-  const handlePasswordStyles = (e) => {
-    if (e.target.value === "") e.target.style.display = "none";
-  };
+  // const handlePasswordStyles = (e) => {
+  //   if (e.target.value === "") e.target.style.display = "none";
+  // };
 
   return type === "password" ? (
     <>

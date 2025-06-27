@@ -3,13 +3,12 @@ import { Navbar, Nav, Dropdown } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { GoogleLogout } from "react-google-login";
 // import action types needed and actions for dispatching
 import { LOGOUT } from "../../constants/actionTypes";
 import { getUsers } from "../../actions/users";
 // import icons from react-icons library
 import { BsChevronDown } from "react-icons/bs";
-import { BsSearch } from "react-icons/bs";
+// import { BsSearch } from "react-icons/bs";
 
 function NavbarComp({ localUser }) {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ function NavbarComp({ localUser }) {
   //   setSearchParams(e.target.value);
   // };
 
-  const clientId = process.env.REACT_APP_clientId;
+  // const clientId = process.env.REACT_APP_clientId;
 
   const googleLogoutSuccess = () => {
     dispatch({ type: LOGOUT });
@@ -50,25 +49,6 @@ function NavbarComp({ localUser }) {
           <>
             <div className="d-flex align-items-center">
               <div className="d-flex align-items-center">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control navbar_search_input"
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="basic-addon2"
-                  />
-                  <div className="input-group-append">
-                    <span
-                      className="input-group-text navbar_search"
-                      id="search-btn"
-                    >
-                      <BsSearch size="25" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="d-flex align-items-center">
                 {
                   <img
                     alt="avatar"
@@ -91,18 +71,18 @@ function NavbarComp({ localUser }) {
                       <span>Settings</span>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <GoogleLogout
+                      {/* <GoogleLogout
                         render={(renderprops) => (
-                          <div
-                            style={{ color: "red" }}
-                            onClick={renderprops.onClick}
-                          >
-                            Log out
-                          </div>
                         )}
                         clientId={clientId}
                         onLogoutSuccess={googleLogoutSuccess}
-                      />
+                      /> */}
+                      <div
+                        style={{ color: "red" }}
+                        onClick={googleLogoutSuccess}
+                      >
+                        Log out
+                      </div>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
