@@ -40,6 +40,7 @@ jobs:
       # Runs the build script defined in your package.json (e.g., 'react-scripts build').
       # Environment variables are set here for the build process.
       env:
+        CI: false
         REACT_APP_API_URL: https://ithub.rocket-champ.com
         REACT_APP_BASE_URL: /projects/ithub
       run: npm run build
